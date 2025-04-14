@@ -5,6 +5,7 @@
     /// </summary>
     public enum ApiKeyStatus
     {
+        /// <summary>Initial status after creation</summary>
         Pending     = 1,
         Active      = 2,
         Inactive    = 3,
