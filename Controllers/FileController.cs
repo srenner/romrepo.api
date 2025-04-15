@@ -26,6 +26,7 @@ namespace RomRepo.api.Controllers
         /// <summary>
         /// Allows sysadmin to upload new data files
         /// </summary>
+        [ApiExplorerSettings(IgnoreApi = true)]
         [HttpPost]
         public async Task<IActionResult> Upload(IFormFile file, CancellationToken cancellationToken)
         {

@@ -69,6 +69,7 @@ namespace RomRepo.api.Controllers
         /// </summary>
         /// <param name="keyStatus">Key and new status code</param>
         /// <returns>Nothing</returns>
+        [ApiExplorerSettings(IgnoreApi = true)]
         [HttpPost("status")]
         public async Task<ActionResult> UpdateKeyStatus([FromBody]ApiKeyValueStatus keyStatus)
         {
@@ -88,6 +89,7 @@ namespace RomRepo.api.Controllers
         /// </summary>
         /// <param name="source">Either the client Installation ID or email address</param>
         /// <returns>Key details</returns>
+        [ApiExplorerSettings(IgnoreApi = true)]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ApiKey>>> GetKey(string source)
         {
