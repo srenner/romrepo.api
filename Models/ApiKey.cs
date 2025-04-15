@@ -19,6 +19,8 @@ namespace RomRepo.api.Models
         public string? IPAddress { get; set; }
         /// <summary>Status of the API Key; see <see cref="ApiKeyStatus"/></summary>
         public int Status { get; set; } = (int)ApiKeyStatus.Pending;
+        /// <summary>Whether or not Key has admin level access.</summary>
+        public bool? IsAdmin { get; set; } = false;
         /// <summary>Date and time the API Key was created</summary>
         public DateTime DateCreated { get; set; }
         /// <summary>Date and time the API Key was last updated</summary>

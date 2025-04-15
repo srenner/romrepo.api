@@ -15,7 +15,7 @@ namespace RomRepo.api.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "8.0.3");
+            modelBuilder.HasAnnotation("ProductVersion", "9.0.4");
 
             modelBuilder.Entity("RomRepo.api.Models.ApiKey", b =>
                 {
@@ -37,6 +37,9 @@ namespace RomRepo.api.Migrations
 
                     b.Property<string>("InstallationID")
                         .HasColumnType("TEXT");
+
+                    b.Property<bool?>("IsAdmin")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Key")
                         .IsRequired()
