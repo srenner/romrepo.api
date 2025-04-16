@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using RomRepo.api.Auth;
 using RomRepo.api.DataAccess;
 using RomRepo.api.Models;
 using RomRepo.api.Models.NotMapped;
@@ -68,12 +69,11 @@ namespace RomRepo.api.Controllers
         /// Changes the status of an API key
         /// </summary>
         /// <param name="keyStatus">Key and new status code</param>
-        /// <returns>Nothing</returns>
-        [ApiExplorerSettings(IgnoreApi = true)]
+        [Admin]
         [HttpPost("status")]
         public async Task<ActionResult> UpdateKeyStatus([FromBody]ApiKeyValueStatus keyStatus)
         {
-            if(keyStatus != null)
+            if (keyStatus != null)
             {
                 await _apiRepository.SetKeyStatus(keyStatus.Key, (ApiKeyStatus)keyStatus.Status);
                 return Ok();
@@ -89,13 +89,10 @@ namespace RomRepo.api.Controllers
         /// </summary>
         /// <param name="source">Either the client Installation ID or email address</param>
         /// <returns>Key details</returns>
-        [ApiExplorerSettings(IgnoreApi = true)]
+        [Admin]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ApiKey>>> GetKey(string source)
         {
-            //temporarily disable until admin security defined
-            return StatusCode(501);
-
             if(MailAddress.TryCreate(source, out var mailAddresss))
             {
                 var keys = await _apiRepository.GetKeyByEmail(source);

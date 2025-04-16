@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Net.Http.Headers;
+using RomRepo.api.Auth;
 using RomRepo.api.DataAccess;
 using RomRepo.api.Services;
 using System.IO.Compression;
@@ -26,7 +27,7 @@ namespace RomRepo.api.Controllers
         /// <summary>
         /// Allows sysadmin to upload new data files
         /// </summary>
-        [ApiExplorerSettings(IgnoreApi = true)]
+        [Admin]
         [HttpPost]
         public async Task<IActionResult> Upload(IFormFile file, CancellationToken cancellationToken)
         {

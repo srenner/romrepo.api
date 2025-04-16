@@ -12,6 +12,9 @@ namespace RomRepo.api.DataAccess
         /// <summary>Gets list of API keys by email address</summary>
         Task<IEnumerable<ApiKey>> GetKeyByEmail(string emailAddress);
 
+        /// <summary>Gets an individual API Key by key value</summary>
+        Task<ApiKey?> GetApiKey(string key);
+
         /// <summary>Get status of an individual API Key</summary>
         Task<int> GetKeyStatus(string key);
 

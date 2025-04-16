@@ -16,12 +16,19 @@ namespace RomRepo.api
         {
             var builder = WebApplication.CreateBuilder(args);
             builder.Services.AddControllers();
+
+            //builder.Services.AddControllers(options =>
+            //{
+            //    options.Filters.Add<AdminAuthorizationFilter>();
+            //});
+
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddDbContext<ApiContext>();
             builder.Services.AddScoped<IApiRepository, ApiRepository>();
             builder.Services.AddScoped<IFileService, FileService>();
             builder.Services.AddScoped<IRomService, RomService>();
             builder.Services.AddScoped<IApiKeyService, ApiKeyService>();
+            builder.Services.AddScoped<AdminFilter>();
             builder.Services.Configure<KestrelServerOptions>(options => options.Limits.MaxRequestBodySize = int.MaxValue);
 
             //Remember to enable "GenerateDocumentationFile" in project settings

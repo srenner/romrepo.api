@@ -29,7 +29,21 @@ namespace RomRepo.api.DataAccess
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Error in ApiRepository.GetKey(emailAddress: {emailAddress})", emailAddress, ex);
+                _logger.LogError($"Error in ApiRepository.GetKeyByEmail(emailAddress: {emailAddress})", emailAddress, ex);
+                return null;
+            }
+        }
+
+        /// <inheritdoc/>
+        public async Task<ApiKey?> GetApiKey(string key)
+        {
+            try
+            {
+                return await _context.ApiKey.Where(w => w.Key == key).FirstOrDefaultAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error in ApiRepository.GetApiKeyAsync(key: {key})", key, ex);
                 return null;
             }
         }

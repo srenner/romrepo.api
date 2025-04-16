@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using RomRepo.api.Auth;
+using RomRepo.api.DataAccess;
 
 namespace RomRepo.api.Controllers
 {
@@ -8,15 +10,9 @@ namespace RomRepo.api.Controllers
     /// </summary>
     public class RepoController : Controller
     {
-        // <summary>Constructor</summary>
-        public RepoController()
-        {
-        }
-
         /// <summary>
         /// Get the current version of the API
         /// </summary>
-        [AllowAnonymous]
         [HttpGet("/version")]
         public string GetVersion()
         {
@@ -33,11 +29,11 @@ namespace RomRepo.api.Controllers
         /// <summary>
         /// Debug info for sysadmin
         /// </summary>
+        [Admin]
         [ApiExplorerSettings(IgnoreApi = true)]
         [HttpGet("/dbpath")]
         public ActionResult<string> GetDbPath()
         {
-            //temporarily disable until admin security defined
             return StatusCode(501);
             //return _context.DbPath;
         }
