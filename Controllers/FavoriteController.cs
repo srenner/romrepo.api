@@ -20,7 +20,7 @@ namespace RomRepo.api.Controllers
         }
 
         /// <summary>
-        /// Allows API user to makr a gaming system as a favorite
+        /// Allows API user to mark a gaming system as a favorite
         /// </summary>
         /// <param name="gameSystemID"></param>
         [HttpPost("gamesystem")]
