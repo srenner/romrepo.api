@@ -16,12 +16,6 @@ namespace RomRepo.api
         {
             var builder = WebApplication.CreateBuilder(args);
             builder.Services.AddControllers();
-
-            //builder.Services.AddControllers(options =>
-            //{
-            //    options.Filters.Add<AdminAuthorizationFilter>();
-            //});
-
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddDbContext<ApiContext>();
             builder.Services.AddScoped<IApiRepository, ApiRepository>();

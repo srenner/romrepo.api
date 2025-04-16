@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using RomRepo.api.DataAccess;
-using System.Net;
-using System.Web.Http;
 
 namespace RomRepo.api.Auth
 {
@@ -49,8 +47,6 @@ namespace RomRepo.api.Auth
         public AdminAttribute()
             : base(typeof(AdminFilter))
         {
-
         }
     }
-
 }
