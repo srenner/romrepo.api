@@ -12,12 +12,13 @@ namespace RomRepo.api.Controllers
     public class RepoController : Controller
     {
         private readonly ApiContext _context;
-
+        private readonly IApiRepository _repository;
 
         /// <summary>Constructor</summary>
-        public RepoController(ApiContext context)
+        public RepoController(ApiContext context , IApiRepository repository)
         {
             _context = context;
+            _repository = repository;
         }
 
         /// <summary>
@@ -54,6 +55,24 @@ namespace RomRepo.api.Controllers
             else
             {
                 return NotFound();
+            }
+        }
+
+        /// <summary>
+        /// Clean the database
+        /// </summary>
+        [Admin]
+        [HttpPost("/clean")]
+        public async Task <ActionResult> CleanDb(CancellationToken cancellationToken)
+        {
+            try
+            {
+                await _repository.CleanDatabase(cancellationToken);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error cleaning database: {ex.Message}");
             }
         }
     }

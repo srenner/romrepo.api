@@ -217,5 +217,48 @@ namespace RomRepo.api.DataAccess
         }
 
         #endregion
+
+        /// <inheritdoc/>
+        public async Task CleanDatabase(CancellationToken cancellationToken)
+        {
+            await CleanKeys();
+            await UpdateIndex(cancellationToken);
+        }
+
+
+        private async Task CleanKeys()
+        {
+            try
+            {
+                var keys = await _context.ApiKey
+                    .Where(w => w.Status == (int)ApiKeyStatus.Pending)
+                    .Where(w => w.DateCreated < DateTime.Now.AddDays(-30))
+                    .ToListAsync();
+                if (keys.Count > 0)
+                {
+                    _context.ApiKey.RemoveRange(keys);
+                    await _context.SaveChangesAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+            }
+        }
+        
+        
+        private async Task UpdateIndex(CancellationToken cancellationToken)
+        {
+            List<Task> tasks = new List<Task>() 
+            {
+                _context.Database.ExecuteSqlRawAsync("REINDEX;", cancellationToken),
+                _context.Database.ExecuteSqlRawAsync("CREATE INDEX IF NOT EXISTS IX_Rom_CRC ON Rom (CRC);", cancellationToken),
+                _context.Database.ExecuteSqlRawAsync("CREATE INDEX IF NOT EXISTS IX_Rom_MD5 ON Rom (MD5);", cancellationToken),
+                _context.Database.ExecuteSqlRawAsync("CREATE INDEX IF NOT EXISTS IX_Rom_SHA1 ON Rom (SHA1);", cancellationToken),
+                _context.Database.ExecuteSqlRawAsync("CREATE INDEX IF NOT EXISTS IX_Rom_SHA256 ON Rom (SHA256);", cancellationToken)
+            };
+
+            await Task.WhenAll(tasks);
+        }
     }
 }

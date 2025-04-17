@@ -30,7 +30,7 @@ namespace RomRepo.api.DataAccess
 
         /// <summary>Adds a new GameSystem with associated games</summary>
         Task<bool> AddGameSystemWithGames(GameSystem gameSystem);
-        
+
         /// <summary>Gets an individual Game System by internal ID</summary>
         Task<GameSystem?> GetGameSystem(int id);
 
@@ -51,5 +51,8 @@ namespace RomRepo.api.DataAccess
         Task<IEnumerable<Rom>> GetRomsByChecksum(string checksum);
 
         #endregion
+
+        /// <summary>Executes database maintenance commands</summary>
+        Task CleanDatabase(CancellationToken cancellationToken);
     }
 }
